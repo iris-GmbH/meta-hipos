@@ -55,7 +55,8 @@ IMAGE_INSTALL += "          \
   wireless-regdb-static     \
 "
 
-IMAGE_INSTALL:append:himx0294 = "   \
+# packages for i.MX based HydraIP machines (himx0294, himx8)
+IMX_DR_PACKAGES = " \
   u-boot-fw-utils           \
   kernel-devicetree         \
   libdrbcc                  \
@@ -68,18 +69,8 @@ IMAGE_INSTALL:append:himx0294 = "   \
   hipos-net-check           \
 "
 
-IMAGE_INSTALL:append:himx8 = "   \
-  u-boot-fw-utils           \
-  kernel-devicetree         \
-  libdrbcc                  \
-  libdrtp                   \
-  drbcc                     \
-  hipos-device-info         \
-  hipos-time                \
-  hip-machinfo              \
-  hipos-network-setup       \
-  hipos-net-check           \
-"
+IMAGE_INSTALL:append:himx0294 = " ${IMX_DR_PACKAGES} "
+IMAGE_INSTALL:append:himx8 = " ${IMX_DR_PACKAGES} "
 
 IMAGE_INSTALL:append:himx0438 = "   \
   u-boot-fw-utils           \
