@@ -1,0 +1,102 @@
+# Easy-RSA Inline file
+# Certificate type: server
+# commonName: hydra
+# SHA256 fingerprint:
+# 97:D9:0D:88:5D:8F:A6:D8:35:FD:72:3A:64:8D:39:EC:1A:D1:75:42:44:BF:6E:7C:41:90:6F:00:83:55:89:83
+# Decimal serial number: 31432512530532976457696627521129366010
+
+<cert>
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            17:a5:ae:84:9c:7e:fc:47:ee:70:a8:5b:99:31:41:fa
+        Signature Algorithm: ecdsa-with-SHA256
+        Issuer: CN=Easy-RSA CA
+        Validity
+            Not Before: Oct 27 10:13:36 2026 GMT
+            Not After : Oct 22 10:13:36 2046 GMT
+        Subject: CN=hydra
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (384 bit)
+                pub:
+                    04:a3:c0:e5:d6:73:dd:3f:a9:c1:06:89:9b:b3:9d:
+                    56:d3:66:d4:4a:36:05:90:f8:6e:f2:1d:7d:ce:0a:
+                    7d:38:e5:c9:8c:20:3f:40:6d:d3:e4:09:ed:f6:b7:
+                    fc:2b:58:0d:f7:0e:2b:6f:83:fd:63:ae:74:5d:f0:
+                    a7:c1:31:ab:51:42:df:94:f6:c7:4b:01:ed:a8:9d:
+                    c2:96:2d:23:7d:6c:aa:ec:f7:7f:f3:39:6d:5e:60:
+                    29:16:66:93:57:f1:30
+                ASN1 OID: secp384r1
+                NIST CURVE: P-384
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Subject Key Identifier: 
+                B5:78:2F:FF:B8:FE:92:E7:AA:3B:ED:6C:55:16:76:03:29:FB:CC:DE
+            X509v3 Authority Key Identifier: 
+                keyid:FE:8A:D2:94:AD:7E:1D:CF:12:4E:CA:D1:61:AE:AF:C9:14:31:94:B0
+                DirName:/CN=Easy-RSA CA
+                serial:65:A9:51:A8:6F:6E:AA:5B:22:F1:A3:DA:E7:1F:2C:67:FF:76:0D:8D
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication
+            X509v3 Key Usage: 
+                Digital Signature, Key Encipherment
+            X509v3 Subject Alternative Name: 
+                DNS:hydra-DEV, IP Address:172.16.0.10, IP Address:10.42.0.70
+    Signature Algorithm: ecdsa-with-SHA256
+    Signature Value:
+        30:66:02:31:00:ab:8a:64:f2:0b:56:8c:9c:88:d8:66:76:61:
+        d3:0e:0f:73:c5:8e:71:c5:ed:46:f3:67:25:4c:89:34:7a:ca:
+        66:9b:6a:a1:4b:f1:51:20:f2:52:77:80:e1:3e:76:29:f1:02:
+        31:00:b6:24:df:ea:db:07:82:b2:b4:84:3c:77:d3:b1:b2:35:
+        c2:50:77:3f:8d:bd:32:d9:a5:87:80:e0:8d:95:59:63:61:1e:
+        d5:ba:b5:f1:66:a6:7d:b5:d1:70:bb:68:ba:bd
+-----BEGIN CERTIFICATE-----
+MIICJzCCAaygAwIBAgIQF6WuhJx+/EfucKhbmTFB+jAKBggqhkjOPQQDAjAWMRQw
+EgYDVQQDDAtFYXN5LVJTQSBDQTAeFw0yNjEwMjcxMDEzMzZaFw00NjEwMjIxMDEz
+MzZaMBAxDjAMBgNVBAMMBWh5ZHJhMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAEo8Dl
+1nPdP6nBBombs51W02bUSjYFkPhu8h19zgp9OOXJjCA/QG3T5Ant9rf8K1gN9w4r
+b4P9Y650XfCnwTGrUULflPbHSwHtqJ3Cli0jfWyq7Pd/8zltXmApFmaTV/Ewo4HE
+MIHBMAkGA1UdEwQCMAAwHQYDVR0OBBYEFLV4L/+4/pLnqjvtbFUWdgMp+8zeMFEG
+A1UdIwRKMEiAFP6K0pStfh3PEk7K0WGur8kUMZSwoRqkGDAWMRQwEgYDVQQDDAtF
+YXN5LVJTQSBDQYIUZalRqG9uqlsi8aPa5x8sZ/92DY0wEwYDVR0lBAwwCgYIKwYB
+BQUHAwEwCwYDVR0PBAQDAgWgMCAGA1UdEQQZMBeCCWh5ZHJhLURFVocErBAACocE
+CioARjAKBggqhkjOPQQDAgNpADBmAjEAq4pk8gtWjJyI2GZ2YdMOD3PFjnHF7Ubz
+ZyVMiTR6ymabaqFL8VEg8lJ3gOE+dinxAjEAtiTf6tsHgrK0hDx307GyNcJQdz+N
+vTLZpYeA4I2VWWNhHtW6tfFmpn210XC7aLq9
+-----END CERTIFICATE-----
+</cert>
+
+<key>
+-----BEGIN PRIVATE KEY-----
+MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDBXUdPTadm8hpBdsx5V
+ew7yWIOj7usrlwvA34j6bGIhLD/s6iBHX0zDEKo0r/zsI9ChZANiAASjwOXWc90/
+qcEGiZuznVbTZtRKNgWQ+G7yHX3OCn045cmMID9AbdPkCe32t/wrWA33Ditvg/1j
+rnRd8KfBMatRQt+U9sdLAe2oncKWLSN9bKrs93/zOW1eYCkWZpNX8TA=
+-----END PRIVATE KEY-----
+</key>
+
+<ca>
+-----BEGIN CERTIFICATE-----
+MIICADCCAYWgAwIBAgIUZalRqG9uqlsi8aPa5x8sZ/92DY0wCgYIKoZIzj0EAwIw
+FjEUMBIGA1UEAwwLRWFzeS1SU0EgQ0EwHhcNMjYxMDI3MTAxMzIyWhcNNDYxMDIy
+MTAxMzIyWjAWMRQwEgYDVQQDDAtFYXN5LVJTQSBDQTB2MBAGByqGSM49AgEGBSuB
+BAAiA2IABEN0V1ekRWXsaOyxg0ZBbCTqx8cI+csFMZNy2KR4qIor/ctNG7/EDRqJ
+tM90fUgA6JlANg0Qwd2h6rHkh9o+odOmFhGZoiS6U0INP22O9epXPivMr1xWOclZ
+1RImYigxxqOBkzCBkDAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBT+itKUrX4d
+zxJOytFhrq/JFDGUsDBRBgNVHSMESjBIgBT+itKUrX4dzxJOytFhrq/JFDGUsKEa
+pBgwFjEUMBIGA1UEAwwLRWFzeS1SU0EgQ0GCFGWpUahvbqpbIvGj2ucfLGf/dg2N
+MAsGA1UdDwQEAwIBBjAKBggqhkjOPQQDAgNpADBmAjEAtDYjB6L8z19rOAm7px43
+Zc6s6ljXRJAkuOwSkQRgF2FiP3/SmXvwIlIbSzCNaf8sAjEAiS1BvVatnqvw4r+p
+UQlHGR649gR0caaZ/EY8fjxtTUmSJ9W33sNHgBtD3p5I6CXk
+-----END CERTIFICATE-----
+</ca>
+
+# <dh>
+# * Paste your Diffie-Hellman parameters file here *
+# </dh>
+
+# Easy-RSA TLS Key not found!
+
