@@ -624,25 +624,73 @@ int board_late_init(void)
 	return 0;
 }
 
+#define SRK_FUSE_BANK   3
+#define SRK_FUSE_WORDS  8
+
+static const u32 SNAKEOIL_SRK[SRK_FUSE_WORDS] = {
+	0xCEE801AC, 0x5C1BF8E6, 0xBD5F7D51, 0xDB7126B8,
+	0x3243E236, 0xBC05E734, 0x1D503105, 0x73D31C9F
+};
+
+static const char *get_srk_type(void)
+{
+	int srk_zero = 0, srk_snakeoil = 0, i;
+	u32 fuse_val;
+
+	for (i = 0; i < SRK_FUSE_WORDS; i++) {
+		if (fuse_read(SRK_FUSE_BANK, i, &fuse_val)) {
+			log_warning("get_srk_type: SRK fuse_read bank=%d word=%d failed\n", SRK_FUSE_BANK, i);
+			return "unknown";
+		}
+		if (fuse_val == 0x00000000) {
+			srk_zero++;
+		} else if (fuse_val == SNAKEOIL_SRK[i]) {
+			srk_snakeoil++;
+		}
+	}
+	if (srk_zero == SRK_FUSE_WORDS) {
+		return "empty";
+	} else if (srk_snakeoil == SRK_FUSE_WORDS) {
+		return "snakeoil";
+	}
+	/*
+	 * All-zeros and all-snakeoil are the only two "known" patterns.
+	 * Everything else is a production SRK.
+	 */
+	return "deploy";
+}
+
 int ft_board_setup(void *blob, struct bd_info *bd)
 {
-	int off;
-	const char *s;
+	int off, ret;
+	const char *state, *srk;
 
-	switch (get_hab_state()) {
-		case 0: s = "insecure"; break;
-		case 1: s = "secure"; break;
-		default: s = "unknown"; break;
+	switch (cached_hab_state) {
+		case 0: state = "insecure"; break;
+		case 1: state = "secure"; break;
+		default: state = "unknown"; break;
 	}
 
-	off = fdt_path_offset(blob, "/chosen");
-	if (off < 0)
-		off = fdt_add_subnode(blob, 0, "chosen");
-	if (off < 0)
-		return 0;
+	srk = get_srk_type();
 
-	/* NUL-terminated string property */
-	fdt_setprop_string(blob, off, "iris,hab-state", s);
+	off = fdt_path_offset(blob, "/chosen");
+	if (off < 0) {
+		if (off != FDT_ERR_NOTFOUND)
+			return off; /* propagate real FDT error */
+		off = fdt_add_subnode(blob, 0, "chosen");
+	}
+	if (off < 0) {
+		log_warning("/ft_board_setup: chosen node could not be added to DT\n");
+		return 0;
+	}
+
+	/* write iris specific properties */
+	ret = fdt_setprop_string(blob, off, "iris,hab-state", state);
+	if (ret)
+		log_warning("ft_board_setup: setprop hab-state failed: %s\n", fdt_strerror(ret));
+	ret = fdt_setprop_string(blob, off, "iris,hab-srk", srk);
+	if (ret)
+		log_warning("ft_board_setup: setprop hab-srk failed: %s\n", fdt_strerror(ret));
 
 	return 0;
 }
