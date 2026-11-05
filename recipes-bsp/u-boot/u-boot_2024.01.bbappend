@@ -34,6 +34,7 @@ SRC_URI:append:himx0294 = " \
 SRC_URI:append:himx0294:hipos-cyber-security = " \
     file://0003-bootm-Authenticate-image-with-IMX-HAB.patch \
     file://0004-hab.h-Make-hab_rvt_report_status-publicly-available.patch \
+    ${@bb.utils.contains("HYDRA_BUILD_TYPE", "release", "file://deploy.cfg", "", d)} \
 "
 
 do_configure:prepend() {
