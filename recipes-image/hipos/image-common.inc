@@ -57,7 +57,6 @@ IMAGE_INSTALL += "          \
 
 IMAGE_INSTALL:append:himx0294 = "   \
   u-boot-fw-utils           \
-  kernel-devicetree         \
   libdrbcc                  \
   libdrtp                   \
   drbcc                     \
@@ -70,7 +69,6 @@ IMAGE_INSTALL:append:himx0294 = "   \
 
 IMAGE_INSTALL:append:himx8 = "   \
   u-boot-fw-utils           \
-  kernel-devicetree         \
   libdrbcc                  \
   libdrtp                   \
   drbcc                     \
@@ -83,7 +81,6 @@ IMAGE_INSTALL:append:himx8 = "   \
 
 IMAGE_INSTALL:append:himx0438 = "   \
   u-boot-fw-utils           \
-  kernel-devicetree         \
 "
 
 IMAGE_INSTALL:append:himx0294 = " \
