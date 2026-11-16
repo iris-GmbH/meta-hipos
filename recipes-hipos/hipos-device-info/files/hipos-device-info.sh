@@ -37,23 +37,6 @@ if [ ! -x "$DRBCC_BIN" ]; then
 	exit 1
 fi
 
-board_init()
-{
-	local machine=$(hip-machinfo -a)
-
-	if [ "${machine}" == "hinat-iprec" ]; then
-		local host_running=263
-		local machine_module
-		machine_module=$(hip-machinfo --module)
-		# Set HOST_RUNNING
-		if [ "${machine_module}" == "MSC-SM2S-AL" ]; then
-			host_running=448
-		fi
-		echo ${host_running} > /sys/class/gpio/export
-		echo high > /sys/class/gpio/gpio${host_running}/direction
-	fi
-}
-
 serial_valid()
 {
 	case $1 in
@@ -167,5 +150,3 @@ fi
 . ${DEVID_FILE}
 update_device_type
 update_hostname
-
-board_init
