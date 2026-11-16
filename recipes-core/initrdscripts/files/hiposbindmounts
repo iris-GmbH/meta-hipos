@@ -1,0 +1,46 @@
+#!/bin/sh
+#
+# Copyright (C) 2026 iris-GmbH infrared & intelligent sensors
+#
+# SPDX-License-Identifier: MIT
+
+_MNT_USERDATA="/mnt/hydra"
+
+# Absolute paths (relative to the filesystem root) of the read-only rootfs
+# that have to stay writable at runtime. Each of them is backed by its
+# counterpart in the userdata volume.
+_RW_FILES=" \
+    /etc/hydraip-devid \
+    /etc/hostname \
+"
+
+warning() {
+    echo "$(date): ${*}"
+}
+
+hiposbindmounts_enabled() {
+    return 0
+}
+
+hiposbindmounts_run() {
+    if ! mountpoint -q "${ROOTFS_DIR}${_MNT_USERDATA}"
+    then
+        warning "userdata volume is not mounted"
+        return 0
+    fi
+
+    for path in ${_RW_FILES}
+    do
+        source="${ROOTFS_DIR}${_MNT_USERDATA}${path}"
+        target="${ROOTFS_DIR}${path}"
+
+        # first boot: seed the backing file in the userdata volume
+        mkdir -p "$(dirname "${source}")"
+        [ -f "${source}" ] || touch "${source}"
+
+        if ! mount --bind "${source}" "${target}"
+        then
+            warning "bind mounting ${path} from userdata failed"
+        fi
+    done
+}

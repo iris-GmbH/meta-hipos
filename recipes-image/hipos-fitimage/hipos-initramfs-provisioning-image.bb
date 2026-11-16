@@ -7,4 +7,5 @@ include recipes-core/images/core-image-initramfs-boot.bb
 
 INITRAMFS_SCRIPTS += " \
     initramfs-module-hipos-provisioning \
+    initramfs-module-hipos-bindmounts \
 "
