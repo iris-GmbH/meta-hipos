@@ -169,8 +169,3 @@ update_device_type
 update_hostname
 
 board_init
-
-# 'real' file is /etc/hydraip-devid. if this isn't the case yet, make it so
-if [ -h ${DEVID_FILE} ]; then mv /etc/hipos/hipos-devid ${DEVID_FILE}; fi
-# check the link in /etc/hipos
-if [ ! -f /etc/hipos/hipos-devid ]; then ln -s ${DEVID_FILE} /etc/hipos/hipos-devid; fi
