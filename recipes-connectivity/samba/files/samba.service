@@ -4,7 +4,7 @@ Requires=network.target
 Requires=hipos-device-info.service
 After=hipos-device-info.service
 
-ConditionPathExists=/etc/hipos/hipos-device.nas
+ConditionPathExists=/run/hipos/hipos-device.nas
 
 [Service]
 Type=oneshot
