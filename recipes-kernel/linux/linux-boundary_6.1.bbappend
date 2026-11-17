@@ -97,3 +97,6 @@ do_configure:prepend:nitrogen6x() {
         cp ${WORKDIR}/defconfig ${S}/arch/arm/configs/nitrogen6x_defconfig
 }
 
+# kernel-base normally recommends kernel-images - remove it so it's not installed by default
+RRECOMMENDS:${KERNEL_PACKAGE_NAME}-base = ""
+
