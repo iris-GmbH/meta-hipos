@@ -53,6 +53,7 @@ IMAGE_INSTALL += "          \
   hipos-usb-check	    \
   tzdata tzdata-misc tzdata-posix tzdata-right tzdata-africa tzdata-americas tzdata-antarctica tzdata-arctic tzdata-asia tzdata-atlantic tzdata-australia tzdata-europe tzdata-pacific \
   wireless-regdb-static     \
+  u-boot-env                \
 "
 
 IMAGE_INSTALL:append:himx0294 = "   \
