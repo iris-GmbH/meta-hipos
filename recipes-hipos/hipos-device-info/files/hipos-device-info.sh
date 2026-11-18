@@ -8,6 +8,7 @@
 # \author Ralf Schröder
 #
 # Copyright (C) 2013-2023 DResearch Fahrzeugelektronik GmbH
+# Copyright (C) 2026 iris-GmbH infrared & intelligent sensors
 #
 
 
@@ -23,7 +24,7 @@ FIX_DEVID_BIN="/usr/sbin/hip-fix-hydraip-devid"
 HOSTNAME_FILE="/etc/hostname"
 # existence of this is checked within systemd scripts to start services 
 # depending on device type e.g. hipos-device.nas or hipos-device.recorder
-DEVICE_FILE_START="/etc/hipos/hipos-device"
+DEVICE_FILE_START="/run/hipos/hipos-device"
 
 loggerANDstdoutError()
 {
@@ -35,23 +36,6 @@ if [ ! -x "$DRBCC_BIN" ]; then
 	loggerANDstdoutError "${DRBCC_BIN} not found"
 	exit 1
 fi
-
-board_init()
-{
-	local machine=$(hip-machinfo -a)
-
-	if [ "${machine}" == "hinat-iprec" ]; then
-		local host_running=263
-		local machine_module
-		machine_module=$(hip-machinfo --module)
-		# Set HOST_RUNNING
-		if [ "${machine_module}" == "MSC-SM2S-AL" ]; then
-			host_running=448
-		fi
-		echo ${host_running} > /sys/class/gpio/export
-		echo high > /sys/class/gpio/gpio${host_running}/direction
-	fi
-}
 
 serial_valid()
 {
@@ -98,15 +82,16 @@ fetch_info()
 				fi
 			fi
 			if [ ${ret} -eq 0 ]; then
-				# move only if different to avoid massive flash writing 
-				diff -abq ${TMP_DEVID_FILE} ${DEVID_FILE} > /dev/null || mv -f ${TMP_DEVID_FILE} ${DEVID_FILE}
+				# move only if different to avoid massive flash writing
+				# (devid file is bind-mounted read-write, mv does not work -> cp + rm)
+				diff -abq ${TMP_DEVID_FILE} ${DEVID_FILE} > /dev/null || { cp -f ${TMP_DEVID_FILE} ${DEVID_FILE} && rm -f ${TMP_DEVID_FILE}; }
 			fi
 		else
 			if ! serial_valid "${serial}"; then
 				loggerANDstdoutError "serial number from info file available in BCTRL is invalid, but we will use it anyway (for lack of alternatives), drbcc resp: \'${resp}\')"
 				ret=1
 			fi
-			mv -f ${TMP_DEVID_FILE} ${DEVID_FILE}
+			cp -f ${TMP_DEVID_FILE} ${DEVID_FILE} && rm -f ${TMP_DEVID_FILE}
 		fi      
 	fi
 	
@@ -122,6 +107,7 @@ update_device_type()
 		device=unknown
 		ret=1
 	fi
+	mkdir -p /run/hipos
 	local device_file=${DEVICE_FILE_START}.${device}
 	if [ ! -e "${device_file}" ]; then
 		touch "${device_file}"
@@ -164,10 +150,3 @@ fi
 . ${DEVID_FILE}
 update_device_type
 update_hostname
-
-board_init
-
-# 'real' file is /etc/hydraip-devid. if this isn't the case yet, make it so
-if [ -h ${DEVID_FILE} ]; then mv /etc/hipos/hipos-devid ${DEVID_FILE}; fi
-# check the link in /etc/hipos
-if [ ! -f /etc/hipos/hipos-devid ]; then ln -s ${DEVID_FILE} /etc/hipos/hipos-devid; fi

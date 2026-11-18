@@ -15,6 +15,8 @@ SRC_URI = " file://hipos-device-info.service  \
 
 FILES:${PN} = "${base_libdir}/systemd \
                ${sysconfdir}/hipos/hipos-device-info.sh \
+               ${sysconfdir}/hipos/hipos-devid \
+               ${sysconfdir}/hydraip-devid \
 		"
 
 SYSTEMD_SERVICE:${PN} = "hipos-device-info.service"
@@ -24,5 +26,7 @@ do_install () {
   install -m 0644 ${WORKDIR}/hipos-device-info.service ${D}${base_libdir}/systemd/system/
   install -d ${D}${sysconfdir}/hipos
   install -m 0755 ${WORKDIR}/hipos-device-info.sh ${D}${sysconfdir}/hipos/
+  ln -s ../hydraip-devid ${D}${sysconfdir}/hipos/hipos-devid
+  install -m 0644 /dev/null ${D}${sysconfdir}/hydraip-devid
 }
 
