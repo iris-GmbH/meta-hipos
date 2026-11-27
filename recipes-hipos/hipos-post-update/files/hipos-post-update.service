@@ -1,0 +1,15 @@
+[Unit]
+Description=Post update service for hipos
+Requires=hip-opmode-normal.target
+After=hip-opmode-normal.target
+FailureAction=reboot
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/hipos-post-update.sh
+RemainAfterExit=yes
+StandardOutput=journal+console
+StandardError=journal+console
+
+[Install]
+WantedBy=multi-user.target
